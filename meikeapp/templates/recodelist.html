@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>已录入</title>
+</head>
+<style type="text/css">
+	footer,header{
+		height: 60px;
+		background-color: #333;
+		color:  azure;
+		line-height: 60px;
+		text-align: center;
+	}
+	header{
+		display: flex;
+	}
+	space{
+		flex: 2.5;
+	}
+	header ul{
+		height: 60px;
+		flex: 1;
+		display: flex;
+	}
+	header ul li{
+		flex: 1;
+		border-bottom: 3px #FFA500 solid;
+		color: white;
+	}
+	body{
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+	}
+	ul{
+		list-style: none;
+	}
+	header ul li:hover{
+		color: #FFA500;
+		background-color: #F0F8FF;
+		border-bottom: 3px black solid;
+		transition: 1s;
+	}
+	*{
+		margin: 0;
+		padding: 0;
+	}
+    .content{
+        flex: 1;
+    }
+    #deleteBtn{
+        height: 40px;
+        width: 100px;
+        background-color: #333333;
+        color: white;
+    }
+    #loged a{
+        text-decoration: none;
+        color: white;
+    }
+    header ul li:hover a{
+        color: #FFA500 !important;
+        transition: 1s;
+    }
+</style>
+<script src="../static/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../static/js/ajax403.js"></script>
+<script type="text/javascript">
+    $.ajaxSetup({data:{csrfmiddlewaretokn:'{{csrf_token}}'},})
+    function Deletenews(ele,id) {
+        var r=confirm("是否删除该记录")
+        if (r==true){
+        $.ajax({
+            url:"/meike/delete",
+            type: "POST",
+            data:{id:id},
+            success:function () {
+                $(ele).closest(".news").remove()
+            }
+        })
+        }
+
+    }
+</script>
+<body>
+	<header>
+		<space></space>
+		<ul>
+			<li id="loged"><a href="/meike/recodelist">已录入</a></li>
+		</ul>
+	</header>
+	<div class="content">
+<div class="newslist">
+
+		{% for i in newslist %}
+
+            <ul class="news">
+                <li ><a href={{ i.url }}>{{ i.title }}</a></li>
+            <button id="deleteBtn" onclick="Deletenews(this,'{{ i.id }}',)">删除</button>
+            </ul>
+
+
+		{% endfor %}
+</div>
+</div>
+{#<script type="text/javascript">#}
+{#	//防止伪装提交#}
+{#	$.ajaxSetup({data:{csrfmiddlewaretokn:'{{csrf_token}}'},})#}
+{#	function Lognews(ele,url,title){#}
+{#		//ajax请求#}
+{#		 $.post("/meike/record",{url:url,title:title},function (res) {#}
+{#		     $(ele).text("已录入")#}
+{##}
+{#         })#}
+{##}
+{#	}#}
+{#</script>#}
+    
+
+	<footer>
+		Copyright © 2020 meike.com Inc. All Rights Reserved
+	</footer>
+
+</body>
+</html>

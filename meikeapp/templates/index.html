@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+	<style type="text/css">
+		footer,header{
+			height: 60px;
+			background-color: #333;
+			color:  azure;
+			line-height: 60px;
+			text-align: center;
+            flex: 1;
+		}
+		body{
+			display: flex;
+			flex-direction: column;
+			/* height: 100vh; */
+		}
+		ul{
+			list-style: none;
+		}
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		img{
+			border-radius: 50px;
+			width: 100%;
+			height: 100%;
+		}
+		content{
+			display: flex;
+			flex: 1;
+		}
+		.content_left{
+			flex: 1;
+		}
+		.content_center{
+			flex: 2;
+		}
+		.banner{
+			margin-top: 40px;
+			line-height: 500px;
+			text-align: center;
+			position: relative;
+			height: 500px;
+			border: 1px solid black;
+			border-radius: 50px;
+		}
+		.img_ul{
+			
+			position: relative;
+			height: 100%;
+			width: 100%;
+		}
+		.img_ul li{
+			position: absolute;
+			display: none;
+			height: 100%;
+			width: 100%;
+			left: 0;
+			top: 0;
+		}
+		.show{
+			display: block !important;
+		}
+		.spit_ul{
+			display: flex;
+			position: absolute;
+			bottom: 0px;
+			border-bottom-right-radius: 50px;
+			border-bottom-left-radius: 50px;
+			height: 80px;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			background:linear-gradient(to bottom,rgba(0,0,0,0),rgba(1,1,1,1)) ;
+		}
+		.spit_ul li{
+			flex: 1;
+			margin-left: 50px;
+			margin-right: 50px;
+			width: 20px;
+			height: 20px;
+			background-color: gray;
+			border-radius: 20px;
+			
+			
+		}
+		.mark{
+			background-color: #FFA500 !important;
+		}
+		.img_ul .title{
+			position: absolute;
+			text-decoration: none;
+			color:  orange;
+			top: -200px;
+			font-size: 1.5em;
+			font-weight: bold;
+			left: 25%;
+		}
+		.content_right{
+			flex: 1;
+		}
+		.content_left ul li{
+            margin: 10px;
+        }
+        .content_left ul li a{
+            color: black;
+        }
+        .content_right ul li{
+            margin: 10px;
+        }
+        .content_right ul li a{
+            color: black;
+        }
+        .center_bottom ul li{
+            margin: 10px;
+        }
+        .center_bottom ul li a{
+            color: black;
+        }
+        .center_bottom{
+            text-align: center;
+        }
+	</style>
+	<script src="../static/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			var i=0;
+			var setplay;
+			function play(){
+				if(i>=3){
+							i=0;
+						}
+				$(".img_ul li").eq(i).fadeIn(1000).siblings("li").fadeOut(1000);
+				$(".spit_ul li").eq(i).addClass("mark").siblings("li").removeClass('mark');
+				
+				i++;
+				}
+			
+				 setplay= setInterval(play,2000)
+					
+			
+			$(".img_ul").mouseover(function() {
+				          clearInterval(setplay);
+				      }).mouseout(function(){
+						 setplay= setInterval(play,2000)
+					  });
+					  $(".mark_ul li").click(function(){
+						  $(this).addClass("mark").siblings().removeClass("mark");
+						  i=$(this).index();
+						  $(".img_ul li").eq(i).fadeIn(1000).siblings("li").fadeOut(1000);
+					  })
+			})
+	</script>
+</head>
+<body>
+	<header>
+		美科新闻
+	</header>
+	<content>
+		<div class="content_left">
+			<ul>
+                {% for i in newslist %}
+                    {% if i.id <= 20 %}
+                        <li><a href={{ i.url }}>{{ i.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+            </ul>
+		</div>
+		<div class="content_center">
+			<div class="banner">
+				<ul class="img_ul">
+					<li class="show"><a href="http://slide.news.sina.com.cn/c/slide_1_2841_430268.html#p=1"><img src="../static/img/4182-innckce8400289.jpg" alt=""><span class="title">肺炎疫情下的武汉春运高峰</span></a></li>
+					<li><a href="http://slide.news.sina.com.cn/c/slide_1_86058_430179.html#p=1"><img src="../static/img/5808-innckce7193791.jpg" alt=""><span class="title">一名“国门铁路”警察的最后一次春运</span></a></li>
+					<li><a href="http://slide.news.sina.com.cn/c/slide_1_86058_430191.html/d/8#p=1"><img src="../static/img/5d2e-innckce7272747.jpg" alt=""><span class="title">2020武侯祠成都大庙会”璀璨试灯</span></a></li>
+				</ul>
+				<ul class="spit_ul">
+					<li class="mark"></li>
+					<li></li>
+					<li></li>
+				</ul>
+
+			</div>
+            <div class="center_bottom">
+                    <ul>
+                {% for i in newslist %}
+                    {% if i.id <= 50 and i.id >= 40 %}
+                        <li><a href={{ i.url }}>{{ i.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+            </ul>
+                </div>
+		</div>
+		<div class="content_right">
+			<ul>
+                {% for i in newslist %}
+                    {% if i.id <= 40 and i.id >= 20 %}
+                        <li><a href={{ i.url }}>{{ i.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+            </ul>
+		</div>
+	</content>
+	<footer>
+		Copyright © 2020 meike.com Inc. All Rights Reserved
+	</footer>
+</body>
+</html>

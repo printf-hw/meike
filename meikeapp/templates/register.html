@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		header{
+			height: 60px;
+		}
+		body{
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+		content{
+			display: flex;
+			background:url(../static/img/body.jpg) no-repeat;
+			flex: 1;
+		}
+		.space_content{
+			flex: 3;
+		}
+		login{
+			display: flex;
+			flex-direction: column;
+			background-color: rgba(0,0,0,0.4);
+		}
+		form{
+			flex: 1;
+			margin: 10px;
+			position: relative;
+		}
+        #msgid{
+            color: red;
+            position: absolute;
+			left: 10%;
+			top: 7%;
+        }
+		input{
+			    display: inline-block;
+			    height: 30px;
+			    width: 300px;
+		}
+		input[type=submit]{
+			background-color: orange;
+			margin-top: 40px;
+			    margin-left: 38px;
+		}
+		.textbox{
+			margin-top: 50px;
+		}
+		h1{
+			color: aliceblue;
+			flex: 0.2;
+			text-align: center;
+			ftext-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+		}
+		footer,header{
+			height: 60px;
+			background-color: #333;
+			color:  azure;
+			line-height: 60px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		美科新闻
+	</header>
+	<content>
+		<div class="space_content">
+			
+		</div>
+		<login>
+			<h1>注册</h1>
+			<form action="/meike/register" method="post">
+                <span id="msgid">{{msg}}</span>
+                {% csrf_token %}
+				<div class="textbox"><span>账号:</span><input type="text" name="uname" id="" value="" /></div>
+				<div class="textbox"><span>密码:</span><input type="password" name="upwd" id="" value="" /></div>
+				<input type="submit" value="注册"/>
+				<br>
+			</form>
+		</login>
+	</content>
+	<footer>
+		Copyright © 2020 meike.com Inc. All Rights Reserved
+	</footer>
+</body>
+</html>
