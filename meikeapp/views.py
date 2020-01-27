@@ -22,7 +22,8 @@ def login(request):
                 return render(request, 'login.html', {"msg": "用户名或密码错误"})
             else:
                 # request.session["uname"] = uname
-                return render(request, 'index.html', {})
+                newslist = News.objects.all()
+                return render(request, "index.html", {"newslist": newslist})
             return render(request, 'login.html', {"msg":"用户名或密码错误"})
         else:
             # request.session["uname"]=uname
